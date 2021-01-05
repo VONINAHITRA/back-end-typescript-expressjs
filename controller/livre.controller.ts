@@ -1,10 +1,10 @@
 import { Connect, Query } from '../config/mysql'
 import { NextFunction, Request, Response } from 'express';
+var express = require("express");
 'use strict';
 const NAMESPACE = "LIVRES";
 
 /* POUR API UTILISATEUR */
-
 //Livre public
 const livrePublic = (req: Request, res: Response, next: NextFunction) => {
     console.log('sSéléctionner livre public seulement');
@@ -58,9 +58,10 @@ const livrePrive = (req: Request, res: Response, next: NextFunction) => {
 }
 
 /* Create livre */
-const CreateLivre = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body.livre);
-    var couvertureBase64 = Buffer.from(req.body.livre.couverture, 'utf-8').toString('base64');
+const CreateLivre = (req: Request, res: Response, next: NextFunction) => {   
+    console.log(req.body.livre.couverture);
+     var couvertureBase64 = Buffer.from(req.body.livre.couverture, 'utf-8').toString('base64');
+    console.log(couvertureBase64);
     let query = `INSERT INTO livre(titre, description,couverture, auteur,datePub,type)VALUES ("${req.body.livre.titre}","${req.body.livre.description}","${couvertureBase64}","${req.body.livre.auteur}","${req.body.livre.datePub}","${req.body.livre.type}")`;
     Connect()
         .then(connection => {

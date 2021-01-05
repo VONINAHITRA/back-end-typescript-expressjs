@@ -5,7 +5,6 @@ import express from 'express';
 import config from '../config/config';
 import livreRoute from '../routes/livres.routes';
 import userRoute from '../routes/utilisateurs.routes';
-
 const passport = require('passport');
 var cors = require('cors');
 const jwt = require('jsonwebtoken');
@@ -13,12 +12,12 @@ var app = express();
 var router=express.Router();
 var session  = require('express-session');
 const passportJWT = require('passport-jwt');
-let ExtractJwt = passportJWT.ExtractJwt;
+// let ExtractJwt = passportJWT.ExtractJwt;
 app.use(cors());
 app.use(cors({
     credentials:true,
 }));
- 
+
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,8 +57,8 @@ app.use('/auth', authentification.authUser);
 app.get('/secret', passport.authenticate('jwt',{session: false}),(req,res,next)=>{
     res.json("Secret Data")
 });
-  
+
 const httpServer = http.createServer(app);
 httpServer.listen(config.server.port, () => {
     console.log("Le serveur a bien démmaré avec le port:" , config.server.port);
-}); 
+});
