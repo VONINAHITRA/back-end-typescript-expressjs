@@ -1,7 +1,7 @@
 import { Connect, Query } from '../config/mysql'
 import { NextFunction, Request, Response } from 'express';
 import { Connection } from 'typeorm';
-
+const bcrypt = require('bcrypt');
 const NAMESPACE = "utilisateurs";
 
 /* Vérifier email */
@@ -21,8 +21,9 @@ const registrerUser = (req: Request, res: Response, next: NextFunction) => {
               .then(async connectionE => {
                 let email = Query(connectionE, requetVerifier)
                   if (await email == false) {
+                  /* Registrer des utilisateurs apres vérification email */
+                        //Hash password
 
-       /* Registrer des utilisateurs apres vérification email */
         let query = `INSERT INTO utilisateur(prenom, nomFamille, courriel, motDePasse) VALUES ("${prenom}","${nomFamille}","${courriel}","${motDePasse}")`;
         Connect()
             .then(connection => {
@@ -59,7 +60,6 @@ const registrerUser = (req: Request, res: Response, next: NextFunction) => {
             "results":"Tous les champs sont obligatoires, Veuillez remplir svp!",
        });
        }
-
 }
 
     export default { registrerUser };

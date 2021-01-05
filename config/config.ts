@@ -24,7 +24,7 @@ const SERVER = {
 
 const config = {
     mysql: MYSQL,
-    server: SERVER
+    server: SERVER,
 }
 
 export default config;
